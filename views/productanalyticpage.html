@@ -1,0 +1,163 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="css/productpage.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <title>Analytics</title>
+</head>
+
+<body>
+    <!-- Nav Bar  -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <!-- Store button (Brand Button) -->
+        <a class="navbar-brand" href="#"> Store </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Non-Brand items  -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">
+                        Analytics Tool<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"> Profile </a>
+                </li>
+            </ul>
+            <!-- Search Bar -->
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                    Search
+                </button>
+            </form>
+        </div>
+    </nav>
+    <!-- Product Title -->
+    <div class="container">
+        <div class="mt-5">
+            <h5>Monster Hunter World - Analytics</h5>
+            <div class="container">
+                <div class="row">
+                    <div class=></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Analyic Display -->
+    <div class="container " id="AllChart">
+        <div class="row justify-content-center">
+            <div class="col-md-12 px-0 mb-0 ">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 px-0 mb-0 " id="slideShow">
+                        <div class="thumbnail">
+                            <img id="slideShowImg"
+                                src="https://cdn-images-1.medium.com/max/1600/1*LeFD2yGfNxdTEX3y71VxoA.jpeg"
+                                alt="Template Image"> </div>
+                    </div>
+                    <!-- Analytic Side Panel -->
+                    <div class="col-md-2 ml-4" id="analyticSidePanel1">
+                        <div class="fiveStars">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                        </div>
+                        <div class="fourStars">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                        </div>
+                        <div class="threeStars">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                        </div>
+                        <div class="twoStars">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                        </div>
+                        <div class="oneStars">
+                            <span class="fa fa-star checked"></span>
+                        </div>
+
+                        <p class="developer mt-3"> Developer : </p>
+                        <p class="publisher"> Publisher : </p>
+                        <p class="releaseDate"> Release Date : </p>
+                        <p class="price"> Price : </p>
+                        <p class="rating"> Product Rating :</p>
+
+                        <button type="button" class="btn btn-success btn-lg"> BUY </button>
+                    </div>
+                    <div class="col-md-2" id="analyticSidePanel2">
+                        <p>Insert Review Score + Info</p>
+                        <button type="button" class="btn btn-primary btn-lg"> Product Page </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <P class="ml-5"><strong>Unsure where to put toolbar so imaging it next to the chart image above</strong></p>
+
+    </div>
+    <!-- Line -->
+    <hr class=line>
+    <!-- Techniqual Specs + Reusing Same ID'S as slideshowentire-->
+    <div class="container " id="slideShowEntire">
+        <div class="row justify-content-center">
+            <div class="col-md-12 px-0 mb-0 ">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 px-0 mb-0 " id="slideShow">
+                        <!-- Image Spec -->
+                        <div class="thumbnail">
+                            <img id="slideShowImg" src="imgs/Specs.JPG" alt="Template Image"> </div>
+                    </div>
+                    <!-- Genre  -->
+                    <div class="col-md-2 ml-4 border border-dark bg-light" id="sidePanel1">
+                        <div class="genre">
+                            <h6><strong><u>Genre</u></strong></h6>
+                            <p>Action</p>
+                            <p>RPG</p>
+                            <P>Slash And Hack</P>
+                            <p>Adventure</p>
+                            <p>Grind</p>
+                        </div>
+                    </div>
+                    <!-- Mode of play -->
+                    <div class="col-md-2 ml-4 border border-dark bg-light" id="sidePanel2">
+                        <h6><strong><u>Play Mode</u></strong></h6>
+                        <p> Single-Player</p>
+                        <p> Multi-Player</p>
+                        <p> Online-Coop</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Line -->
+    <hr class="line">
+    <!-- Reviews -->
+    <div class="container fluid mt-5" id="reviewBody">
+        <div class="row justify-content-center">
+            <div class="col-md-12 px-0 mb-0">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 px-0 mb-0 border border dark bg-dark text-light" id="reviews">
+                        <p>Insert Review</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+
+</html>

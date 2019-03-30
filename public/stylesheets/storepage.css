@@ -1,0 +1,22 @@
+#promotedItems {
+    height: 300px;
+    width: 200px;
+}
+#promotedItemsImg{
+    width:100%;
+    height:100%;
+}
+#promotedItemsEntire{
+    overflow:hidden;
+}
+#topItems {
+    height: 300px;
+    width: 200px;
+}
+#topItemsImg{
+    width:100%;
+    height:100%;
+}
+#topEntire{
+    overflow:hidden;
+}

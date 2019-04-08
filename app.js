@@ -8,6 +8,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var storepageRouter = require('./routes/storepage');
+var productpageRouter = require('./routes/productpage');
 
 var app = express();
 
@@ -24,9 +25,10 @@ mongoUtil.connectToServer(function (err) {
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'public')));
 
-  app.use('/', indexRouter);
+  //app.use('/', indexRouter);
   app.use('/users', usersRouter);
-  app.use('/storepage', storepageRouter);
+  app.use('/', storepageRouter);
+  app.use('/product',productpageRouter);
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
     next(createError(404));

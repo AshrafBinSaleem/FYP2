@@ -45,7 +45,7 @@
   <!-- Product Title -->
   <div class="container">
     <div class="mt-5">
-      <h5><%= title %></h5>
+      <h5><%= prod.title %></h5>
       <div class="container">
         <div class="row">
           <div class=></div>
@@ -60,9 +60,7 @@
         <div class="row justify-content-center">
           <div class="col-md-6 px-0 mb-0 " id="slideShow">
             <div class="thumbnail">
-              <img id="slideShowImg"
-                src= <%= imageLink %>
-                alt="Template Image"></div>
+              <img id="slideShowImg" src=<%= prod.imageLink %> alt="Template Image"></div>
           </div>
           <div class="col-md-2 ml-4" id="sidePanel1">
             <div class="fiveStars">
@@ -91,11 +89,11 @@
               <span class="fa fa-star checked"></span>
             </div>
 
-            <p class="developer mt-3"> Developer : <%= developer %> </p>
-            <p class="publisher"> Publisher : <%= publisher %> </p>
-            <p class="releaseDate"> Release Date : <%= releaseDate %> </p>
-            <p class="price"> Price : <%= price %> </p>
-            <p class="rating"> Product Rating : <%= productRating %></p>
+            <p class="developer mt-3"> Developer : <%= prod.developer %> </p>
+            <p class="publisher"> Publisher : <%= prod.publisher %> </p>
+            <p class="releaseDate"> Release Date : <%= prod.date.toDateString() %> </p>
+            <p class="price"> Price : <%= prod.price %> </p>
+            <p class="rating"> Product Rating : <%= prod.productRating %></p>
 
             <button type="button" class="btn btn-success btn-lg"> BUY </button>
           </div>
@@ -115,8 +113,8 @@
       <div class="col-md-12 px-0 mb-0">
         <div class="row justify-content-center">
           <div class="col-md-10 px-0 mb-0" id="productDescription">
-            <p class ="pSection1">
-              <%= p1 %>
+            <p class="pSection1">
+              <%= prod.desc %>
               <!-- Welcome to a new world! Take on the role of a hunter and slay ferocious monsters in a living, breathing
               ecosystem where you can use the landscape and its diverse inhabitants to get the upper hand. Hunt alone or
               in co-op with up to three other players, and use materials collected from fallen foes to craft new gear
@@ -126,7 +124,7 @@
             <h6>INTRODUCTION</h6>
             <p><strong>Overview</strong></p>
             <p>
-              <%= p2 %>
+              <%= prod.introduction %>
               <!-- As a hunter, you'll take on quests to hunt monsters in a variety of habitats.
               Take down these monsters and receive materials that you can use to create stronger weapons and armor in
               order to hunt even more dangerous monsters.
@@ -137,7 +135,7 @@
             </p>
             <p><strong>Setting</strong></p>
             <p>
-              <%= p3 %>
+              <%= prod.setting %>
               <!-- Once every decade, elder dragons trek across the sea to travel to the land known as the New World in a
               migration referred to as the Elder Crossing.
 
@@ -169,7 +167,11 @@
           <div class="col-md-2 ml-4 border border-dark bg-light" id="sidePanel1">
             <div class="genre">
               <h6><strong><u>Genre</u></strong></h6>
-            
+              <% for (var i = 0; i < prod.type.length; i++) { %>
+
+                <li><%= prod.type[i] %></li>
+  
+                <% } %>
               <!-- <p>Action</p>
               <p>RPG</p>
               <P>Slash And Hack</P>
@@ -180,23 +182,35 @@
           <!-- Mode of play -->
           <div class="col-md-2 ml-4 border border-dark bg-light" id="sidePanel2">
             <h6><strong><u>Play Mode</u></strong></h6>
-         
-            <p> Multi-Player</p>
-            <p> Online-Coop</p> 
+
+            <ul>
+
+              <% for (var i = 0; i < prod.play_Mode.length; i++) { %>
+
+              <li><%= prod.play_Mode[i] %></li>
+
+              <% } %>
+
+
+
+            </ul>
+            <!-- <p> Multi-Player</p>
+            <p> Online-Coop</p>  -->
           </div>
         </div>
       </div>
     </div>
   </div>
   <!-- Line -->
-  <hr class="line"> 
+  <hr class="line">
   <!-- Reviews -->
-   <div class="container fluid" id="reviewBody">
+  <div class="container fluid" id="reviewBody">
     <div class="row justify-content-center">
       <div class="col-md-12 px-0 mb-0">
         <div class="row justify-content-center">
           <div class="col-md-10 px-0 mb-0 border border dark bg-dark text-light" id="reviews">
-           <p>Insert Review</p>
+            <p>Insert Review</p>
           </div>
 </body>
+
 </html>

@@ -4,15 +4,32 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+global.mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var storepageRouter = require('./routes/storepage');
 var productpageRouter = require('./routes/productpage');
-
+var testPage = require('./routes/testpage');
 var app = express();
 
-mongoUtil.connectToServer(function (err) {
+//Define global
+global.productSchema = new mongoose.Schema({
+  title: String,
+  company: String, 
+  publisher: String, 
+  date: Date,
+  price: Number,
+  review_Score: Number,
+  desc: String,
+  introduction: String,
+  setting: String,
+  imageLink: String,
+  play_Mode: Array,
+  type: Array,
+});
+
+mongoUtil.connectToServer(function () {
 
 
   // view engine setup
@@ -29,6 +46,7 @@ mongoUtil.connectToServer(function (err) {
   app.use('/users', usersRouter);
   app.use('/', storepageRouter);
   app.use('/product',productpageRouter);
+  app.use('/test',testPage);
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
     next(createError(404));

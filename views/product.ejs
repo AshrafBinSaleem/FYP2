@@ -62,7 +62,7 @@
             <div class="thumbnail">
               <img id="slideShowImg" src=<%= prod.imageLink %> alt="Template Image"></div>
           </div>
-          <div class="col-md-2 ml-4" id="sidePanel1">
+          <div class="col-md-4 ml-4" id="sidePanel1">
             <div class="fiveStars">
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
@@ -95,10 +95,7 @@
             <p class="price"> Price : <%= prod.price %> </p>
             <p class="rating"> Product Rating : <%= prod.productRating %></p>
 
-            <button type="button" class="btn btn-success btn-lg"> BUY </button>
-          </div>
-          <div class="col-md-2" id="sidePanel2">
-            <p>Insert Review Score + Info</p>
+            <button type="button" class="btn btn-success btn-lg"> Buy </button>
             <button type="button" class="btn btn-primary btn-lg"> Analytics </button>
           </div>
         </div>
@@ -114,17 +111,26 @@
         <div class="row justify-content-center">
           <div class="col-md-10 px-0 mb-0" id="productDescription">
             <p class="pSection1">
-              <%= prod.desc %>
+              <h5><u>INTRODUCTION</u></h5>
+              <%if (prod.desc.length > 0) { %>
+                <p><strong>Summary</strong></p>
+                <%= prod.desc %>
+                
+              <% } %>
+              
+              
               <!-- Welcome to a new world! Take on the role of a hunter and slay ferocious monsters in a living, breathing
               ecosystem where you can use the landscape and its diverse inhabitants to get the upper hand. Hunt alone or
               in co-op with up to three other players, and use materials collected from fallen foes to craft new gear
               and take on even bigger, badder beasts! -->
             </p>
             <br>
-            <h6>INTRODUCTION</h6>
-            <p><strong>Overview</strong></p>
             <p>
-              <%= prod.introduction %>
+                <%if (prod.introduction.length > 0) { %>
+                  <p><strong>Overview</strong></p>
+                  <%= prod.introduction %>
+                  
+                <% } %>
               <!-- As a hunter, you'll take on quests to hunt monsters in a variety of habitats.
               Take down these monsters and receive materials that you can use to create stronger weapons and armor in
               order to hunt even more dangerous monsters.
@@ -133,9 +139,13 @@
               experience, using everything at your disposal to hunt monsters in a new world teeming with surprises and
               excitement. -->
             </p>
-            <p><strong>Setting</strong></p>
+            <br>
             <p>
-              <%= prod.setting %>
+                <%if (prod.setting.length > 0) { %>
+                  <p><strong>Setting</strong></p>
+                  <%= prod.setting %>
+                  
+                <% } %>
               <!-- Once every decade, elder dragons trek across the sea to travel to the land known as the New World in a
               migration referred to as the Elder Crossing.
 

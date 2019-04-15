@@ -16,7 +16,7 @@ var app = express();
 //Define global
 global.productSchema = new mongoose.Schema({
   title: String,
-  company: String, 
+  developer: String, 
   publisher: String, 
   date: Date,
   price: Number,
@@ -27,6 +27,10 @@ global.productSchema = new mongoose.Schema({
   imageLink: String,
   play_Mode: Array,
   type: Array,
+});
+
+global.companySchema = new mongoose.Schema({
+  name: String
 });
 
 mongoUtil.connectToServer(function () {

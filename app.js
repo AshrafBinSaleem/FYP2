@@ -33,6 +33,13 @@ global.companySchema = new mongoose.Schema({
   name: String
 });
 
+global.salesSchema = new mongoose.Schema({
+  title: String,
+  customer: String,
+  date: Date,
+  price: Number,
+});
+
 mongoUtil.connectToServer(function () {
 
 

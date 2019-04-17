@@ -11,20 +11,32 @@ router.get('/', function (req, res, next) {
  
   var id = new require('mongodb').ObjectID(req.params.id);
 
-  var Product = mongoose.model('product', productSchema,"product");
+  var Sales = mongoose.model('sales', salesSchema, "sales");
 
-
-    Product.findOne({title: "Sekiro"}, function(error, product){
-        if (error) return console.error(error);
-        console.log(product);
-        var Company = mongoose.model('company', companySchema,"company");
-
-        Company.findOne({_id: product.publisher}, function(error, company) {
-            console.log(company);
-            res.render('testpage',{mgobj: product});
+  Sales.find().distinct('title',function(error, titles){
+    if (error) return console.error(error);
+        //console.log(sales);
+        titles.forEach(element => {
+           console.log(element); 
         });
+         res.render('testpage',{tit: titles});
+
+  });
+
+//   var Product = mongoose.model('product', productSchema,"product");
+
+
+//     Product.findOne({title: "Sekiro"}, function(error, product){
+//         if (error) return console.error(error);
+//         console.log(product);
+//         var Company = mongoose.model('company', companySchema,"company");
+
+//         Company.findOne({_id: product.publisher}, function(error, company) {
+//             console.log(company);
+//             res.render('testpage',{mgobj: product});
+//         });
         
-    });
+    // });
 
     
 });

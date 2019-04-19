@@ -13,6 +13,31 @@ router.get('/', function (req, res, next) {
 
   var Sales = mongoose.model('sales', salesSchema, "sales");
 
+  Sales.aggregate([{
+    $group: {
+      _id : {MaxMonth: { $max : { $month: "$date"} }, year: { $max : {$year: "$date"} } }
+      }
+  }],function(err, obj)
+  {
+    console.log(obj);
+  })
+  
+  
+    Sales.aggregate([{
+    $group: {
+      _id : {month: { $month: "$date" }, year: { $year: "$date" }, title: "$title" },
+      title : {$first : "$title"} ,
+      month : {$first : {$month: "$date"} }, 
+      count: { $sum: 1 }
+      },
+    
+  },
+  {$sort : {title: 1, month: 1 }}],function(err, obj)
+  {
+    console.log(obj);
+  })
+  
+
   Sales.find().distinct('title',function(error, titles){
     if (error) return console.error(error);
         //console.log(sales);

@@ -73,7 +73,7 @@ router.get('/', function (req, res, next) {
     var d = new Date();
     var n = d.getMonth() + 1;
     //console.log("N:", n);
-    var Month = ['Jan', 'Feb' , 'March', 'April', 'June' , 'July', 'May' , 'Aug', 'Stp', 'Oct', 'Nov', 'Dec'];
+    var Month = ["'Jan'", "'Feb'" , "'March'", "'April'", "'June'" , "'July'", "'May'" , "'Aug'", "'Stp'", "'Oct'", "'Nov'", "'Dec'"];
     //console.log(resProm[0][0].count)
     // salesprom.then(function (doc) {
     //   console.log(doc)
@@ -86,7 +86,7 @@ router.get('/', function (req, res, next) {
       //console.log(element); 
       resProm[0].forEach(charData => {
         if (charData.title == element) {
-          tmpArra[charData.month - 1] = charData.count
+          tmpArra[charData.month - 1] = charData.count 
 
         }
 
@@ -94,11 +94,21 @@ router.get('/', function (req, res, next) {
       charDataArra.push(tmpArra);
     });
 
+    var columnType = [];
+    var titleNew = []
+    columnType.push("'string'");
+    titleNew.push("'Month'");
+
+    for (let index = 0; index < titles.length; index++) {
+     titleNew.push( "'" + titles[index] +"'");
+     columnType.push("'number'");
+    }
+
     console.log(charDataArra);
     console.log(Month);
     console.log(titles);
     
-    res.render('testpage', { tit: titles });
+    res.render('testpage', { tit: titleNew, mon : Month, data: charDataArra ,coltype : columnType});
 
   })
 

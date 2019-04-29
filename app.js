@@ -25,7 +25,7 @@ global.productSchema = new mongoose.Schema({
   introduction: String,
   setting: String,
   imageLink: String,
-  play_Mode: Array,
+  play_Mode: String,
   type: Array,
 });
 

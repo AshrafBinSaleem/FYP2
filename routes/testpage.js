@@ -140,7 +140,9 @@ router.get('/', function (req, res, next) {
       });
       playModeArra.push(tmpArra);
     });
-    
+
+    gametypeout = ["'Month'","'SinglePlayer'", "'MultiPlayer'", "'Both'"]
+    gametitlecolumntype = ["'string'","'number'","'number'","'number'"]
     // resSalesProm[0].forEach(element => {
     //   console.log(element.productDetails[0].play_Mode)
     //   if(element.productDetails[0].play_Mode == "SinglePlayer"){
@@ -155,10 +157,9 @@ router.get('/', function (req, res, next) {
       
     // });
     
-    console.log(resSalesProm[0]);
     console.log(playModeArra);
 
-    res.render('testpage', { tit: titleNew, mon : Month, data: charDataArra ,coltype : columnType});
+    res.render('testpage', { tit: titleNew, mon : Month, data: charDataArra ,coltype : columnType, playmodedata : playModeArra, gametitle : gametypeout, gamecoltype : gametitlecolumntype });
 
   })
 

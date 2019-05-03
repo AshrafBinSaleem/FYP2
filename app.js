@@ -12,7 +12,7 @@ var storepageRouter = require('./routes/storepage');
 var productpageRouter = require('./routes/productpage');
 var testPage = require('./routes/testpage');
 var app = express();
-
+var analyticspageRouter = require('./routes/analyticpage')
 //Define global
 global.productSchema = new mongoose.Schema({
   title: String,
@@ -58,6 +58,8 @@ mongoUtil.connectToServer(function () {
   app.use('/', storepageRouter);
   app.use('/product',productpageRouter);
   app.use('/test',testPage);
+  app.use('/analytics',analyticspageRouter);
+
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
     next(createError(404));

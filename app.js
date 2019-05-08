@@ -1,3 +1,4 @@
+//Creating a variable to Define nessercaily tools/libraries
 var mongoUtil = require('./mongoUtils');
 var createError = require('http-errors');
 var express = require('express');
@@ -6,14 +7,85 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 global.mongoose = require('mongoose');
 
-var indexRouter = require('./routes/index');
+//Creating Routing Page
+var loginRouter = require('./routes/loginpage');
+var registerRouter = require('./routes/registerpage')
 var usersRouter = require('./routes/users');
 var storepageRouter = require('./routes/storepage');
 var productpageRouter = require('./routes/productpage');
 var testPage = require('./routes/testpage');
 var app = express();
 var analyticspageRouter = require('./routes/analyticpage')
-//Define global
+
+
+//Authentication Code
+//Part 1
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({extended: true}));
+app.set('view engine', 'ejs');
+app.listen(process.env.PORT, process.env.IP, function(){
+  console.log("server started");
+})
+//Part 2
+app.use(require("express-session")({
+  secret: "HELLO YOU",
+  resave: false,
+  saveUninitialized: false
+}));
+var passport = require("passport");
+var LocalStrategy = require("passport-local");
+var passportLocalMongoose = require("passport-local-mongoose");
+var User = require("./models/user");
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use(bodyParser.urlencoded({extended:true}));
+
+//Part 3
+//handling user registeration and redirecting to store front.
+app.post("/register", function(req, res){
+ 
+  req.body.username
+  req.body.password
+  User.register(new User({username: req.body.username}), req.body.password, function(err, user){
+    if(err){
+      console.log(err);
+      return res.render('register');
+    }
+    passport.authenticate("local")(req, res, function(){
+      res.redirect("/");
+    });
+  });
+});
+
+//Login logic part 
+//Middleware
+app.post("/login", passport.authenticate("local", {
+  successRedirect: "/",
+  failureRedirect: "/login"
+}), function(req, res){
+
+});
+
+//Logout
+app.get("/logout", function(req, res){
+  req.logout();
+  res.redirect("/");
+})
+
+//login check [Not in use] (you need app.get to use it)
+function isLoggedIn(req,res,next){
+  if(req.authenticate()){
+    return next();
+  }
+  res.redirect("/login");
+}
+
+//Define global for our Schema
 global.productSchema = new mongoose.Schema({
   title: String,
   developer: String, 
@@ -40,6 +112,7 @@ global.salesSchema = new mongoose.Schema({
   price: Number,
 });
 
+//Contacting to Mongo DB and setting items that are to be connected to it
 mongoUtil.connectToServer(function () {
 
 
@@ -53,12 +126,14 @@ mongoUtil.connectToServer(function () {
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'public')));
 
-  //app.use('/', indexRouter);
+  //Declaring which router will use which template
   app.use('/users', usersRouter);
   app.use('/', storepageRouter);
   app.use('/product',productpageRouter);
   app.use('/test',testPage);
   app.use('/analytics',analyticspageRouter);
+  app.use('/login', loginRouter);
+  app.use('/register', registerRouter);
 
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
@@ -81,4 +156,3 @@ mongoUtil.connectToServer(function () {
 
 module.exports = app;
 
-// start the rest of your app here

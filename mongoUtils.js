@@ -1,5 +1,4 @@
-//var MongoClient = require( 'mongodb' ).MongoClient;
-
+//This is where we setup up and connect mongoDB to our server
 var _db;
 
 module.exports = {
@@ -12,10 +11,9 @@ module.exports = {
         console.log("succesfully connected");
     });
 
-    //MongoClient.connect( "mongodb://localhost:27017", function( err, client ) {
-    //  _db = client.db('fypdb');
+
       return callback(  );
-    //} );
+
   },
 
   getDb: function() {

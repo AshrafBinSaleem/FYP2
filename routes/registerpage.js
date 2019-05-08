@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-//Rending Store Page
+//Rendering register Page
 router.get('/', function(req, res, next) {
-  res.render('storepage', { title: 'Express' });
+  res.render('registerpage', { title: 'Express' });
 });
 
 module.exports = router;

@@ -111,49 +111,33 @@
         <div class="row justify-content-center">
           <div class="col-md-10 px-0 mb-0" id="productDescription">
             <p class="pSection1">
+              <!--Introduction Header and Summary-->
               <h5><u>INTRODUCTION</u></h5>
               <%if (prod.desc.length > 0) { %>
                 <p><strong>Summary</strong></p>
                 <%= prod.desc %>
                 
               <% } %>
-              
-              
-              <!-- Welcome to a new world! Take on the role of a hunter and slay ferocious monsters in a living, breathing
-              ecosystem where you can use the landscape and its diverse inhabitants to get the upper hand. Hunt alone or
-              in co-op with up to three other players, and use materials collected from fallen foes to craft new gear
-              and take on even bigger, badder beasts! -->
             </p>
             <br>
+            <!-- Introduction-->
+
             <p>
                 <%if (prod.introduction.length > 0) { %>
                   <p><strong>Overview</strong></p>
                   <%= prod.introduction %>
                   
                 <% } %>
-              <!-- As a hunter, you'll take on quests to hunt monsters in a variety of habitats.
-              Take down these monsters and receive materials that you can use to create stronger weapons and armor in
-              order to hunt even more dangerous monsters.
-
-              In Monster Hunter: World, the latest installment in the series, you can enjoy the ultimate hunting
-              experience, using everything at your disposal to hunt monsters in a new world teeming with surprises and
-              excitement. -->
             </p>
             <br>
+            <!--  Setting -->
             <p>
                 <%if (prod.setting.length > 0) { %>
                   <p><strong>Setting</strong></p>
                   <%= prod.setting %>
                   
                 <% } %>
-              <!-- Once every decade, elder dragons trek across the sea to travel to the land known as the New World in a
-              migration referred to as the Elder Crossing.
 
-              To get to the bottom of this mysterious phenomenon, the Guild has formed the Research Commission,
-              dispatching them in large fleets to the New World.
-
-              As the Commission sends its Fifth Fleet in pursuit of the colossal elder dragon, Zorah Magdaros, one
-              hunter is about to embark on a journey grander than anything they could have ever imagined. -->
             </p>
           </div>
 
@@ -182,33 +166,19 @@
                 <li><%= prod.type[i] %></li>
   
                 <% } %>
-              <!-- <p>Action</p>
-              <p>RPG</p>
-              <P>Slash And Hack</P>
-              <p>Adventure</p>
-              <p>Grind</p> -->
+           
             </div>
           </div>
           <!-- Mode of play -->
           <div class="col-md-2 ml-4 border border-dark bg-light" id="sidePanel2">
             <h6><strong><u>Single/Mulitplayer</u></strong></h6>
-
-            <!-- <ul>
-
-              <% for (var i = 0; i < prod.play_Mode.length; i++) { %>
-
-              <li><%= prod.play_Mode[i] %></li>
-
-              <% } %> -->
                 <li>
                     <%= prod.play_Mode %>
 
                 </li>
               
 
-            <!-- </ul> -->
-            <!-- <p> Multi-Player</p>
-            <p> Online-Coop</p>  -->
+           
           </div>
         </div>
       </div>

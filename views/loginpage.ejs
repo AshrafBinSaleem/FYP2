@@ -51,55 +51,22 @@
   <div class="container mt-5">
     <div class="mt-5">
       <!-- Form -->
-      <form>
+      <form action ='/login' method="POST">
         <div class="form-group">
-          <label for="exampleInputEmail1">Email</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-            placeholder="Enter email">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <label for="exampleInputEmail1">Username</label>
+          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+           name="username" placeholder="Enter username">
+          <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <input type="password" class="form-control" id="exampleInputPassword1" name=password placeholder="Password">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </div>
-  
-  <!-- Line -->
-  <hr> 
 
-  <!-- Register -->
-  <div class="container ml-10 mt-5">
-    <h5 class="RegisterTitle"> <strong><u>Register</u></strong></h5>
-  </div>
-  <!-- Register Form Using Login CSS/HTML Code -->
-  <div class="container mt-5">
-    <div class="mt-5">
-      <form>
-        <label for="exampleInputEmail1">Email</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-          placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-    <!-- Label -->
-    <label for="forName">Name </label>
-    <!-- For User's Name -->
-    <div class="form-row">
-      <div class="col">
-        <input type="text" class="form-control" placeholder="First name">
-      </div>
-      <div class="col">
-        <input type="text" class="form-control" placeholder="Last name">
-      </div>
-    </div>
-    <button type="submit" class="btn btn-danger mt-3">Register</button>
-    </form>
   </div>
   </div>
 </body>

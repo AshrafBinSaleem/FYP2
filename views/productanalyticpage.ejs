@@ -4,12 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" href="css/productpage.css" />
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../stylesheets/productpage.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
+      var month = [<%- mon %> ];
+      var optionsLineChart = {
+    title: 'Sales Performance',
+    series: {
+      curveType: 'function'
+    },
+    legend: { position: 'bottom' }
+  };
+      function drawChart() {
+    //Google chart visualization data table
+    console.log("Drawing sales performance chart")
+    var data = new google.visualization.DataTable();
+    var Header = ['month', '<%- prod.title %>'];
+    var HeaderType = ['string','number'];
+    for (let index = 0; index < Header.length; index++) {
+      data.addColumn(HeaderType[index], Header[index]);
+    }
+    //Errors signs are just their they do not affect the function of the system or indicate any real errors. Could just be IDE being unable to comprehend the action being written.
+    var chartsdata = [<%- data %>];
+    for (var i = 0; i < month.length; i++) {
+      var temp = [];
+      temp.push(month[i]);
+      for (var index = 0; index < (Header.length - 1); index++) {
+
+        temp.push(chartsdata[i + (index * month.length)]);
+      }
+      data.addRow(temp);
+    }
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+    chart.draw(data, optionsLineChart);
+  }
+    </script>
     <title>Analytics</title>
 </head>
 
@@ -60,9 +96,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-6 px-0 mb-0 " id="slideShow">
                         <div class="thumbnail">
-                            <img id="slideShowImg"
-                                src="https://cdn-images-1.medium.com/max/1600/1*LeFD2yGfNxdTEX3y71VxoA.jpeg"
-                                alt="Template Image"> </div>
+                                <div id="curve_chart" style="width: 900px; height: 500px"></div></div>
                     </div>
                     <!-- Analytic Side Panel -->
                     <div class="col-md-2 ml-4" id="analyticSidePanel1">
@@ -107,6 +141,7 @@
                 </div>
             </div>
         </div>
+        <br>
         <P class="ml-5"><strong>Unsure where to put toolbar so imaging it next to the chart image above</strong></p>
 
     </div>

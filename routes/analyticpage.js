@@ -3,10 +3,11 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var authen  = require('../authentication');
 
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', authen.isLoggedIn, function (req, res, next) {
 
   //Declaring MongoUtils and getting Db
   var mongoUtil = require('../mongoUtils');

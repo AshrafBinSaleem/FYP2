@@ -8,6 +8,8 @@ var logger = require('morgan');
 global.mongoose = require('mongoose');
 
 //Creating Routing Page
+var productanalyticpageRouter = require('./routes/productanalyticpage');
+
 var loginRouter = require('./routes/loginpage');
 var registerRouter = require('./routes/registerpage')
 var usersRouter = require('./routes/users');
@@ -16,7 +18,7 @@ var productpageRouter = require('./routes/productpage');
 var testPage = require('./routes/testpage');
 var app = express();
 var analyticspageRouter = require('./routes/analyticpage')
-
+var commentRouter = require('./routes/comment')
 
 //Authentication Code
 //Part 1
@@ -112,6 +114,13 @@ global.salesSchema = new mongoose.Schema({
   price: Number,
 });
 
+global.commentsSchema = new mongoose.Schema({
+  title: String,
+  customer: String,
+  comment: String,
+  review_Score: Number,
+  date: Date
+})
 //Contacting to Mongo DB and setting items that are to be connected to it
 mongoUtil.connectToServer(function () {
 
@@ -134,7 +143,8 @@ mongoUtil.connectToServer(function () {
   app.use('/analytics',analyticspageRouter);
   app.use('/login', loginRouter);
   app.use('/register', registerRouter);
-
+  app.use('/productanalytic', productanalyticpageRouter);
+  app.use('/comment',commentRouter);
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
     next(createError(404));

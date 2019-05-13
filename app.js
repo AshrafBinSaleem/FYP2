@@ -64,6 +64,25 @@ app.post("/register", function(req, res){
   });
 });
 
+app.post("/product/:id", function(req, res){
+  console.log("TEST TEST TEST");
+  var newcomment = new commentsSchema;
+  newcomment.title = req.body.gametitle;
+  newcomment.comment = req.body.comment;
+  newcomment.reviewscore = 5;
+  //  req.body.score;
+  newcomment.date = new Date;
+  newcomment.customer = req.body.username;
+  newcomment.save(function(err) {
+    if (err) {
+        console.log(err);
+        res.send(err);
+    } else {
+        //User saved!
+        res.json({ message: 'User created' });
+    }
+});
+});
 //Login logic part 
 //Middleware
 app.post("/login", passport.authenticate("local", {
@@ -118,7 +137,7 @@ global.commentsSchema = new mongoose.Schema({
   title: String,
   customer: String,
   comment: String,
-  review_Score: Number,
+  reviewscore: Number,
   date: Date
 })
 //Contacting to Mongo DB and setting items that are to be connected to it

@@ -9,7 +9,7 @@ global.mongoose = require('mongoose');
 
 //Creating Routing Page
 var productanalyticpageRouter = require('./routes/productanalyticpage');
-
+var emptytestpageRouter = require('./routes/emptytestpage')
 var loginRouter = require('./routes/loginpage');
 var registerRouter = require('./routes/registerpage')
 var usersRouter = require('./routes/users');
@@ -23,6 +23,7 @@ var commentRouter = require('./routes/comment')
 //Authentication Code
 //Part 1
 var bodyParser = require("body-parser");
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.listen(process.env.PORT, process.env.IP, function(){
@@ -64,22 +65,23 @@ app.post("/register", function(req, res){
   });
 });
 
-app.post("/product/:id", function(req, res){
+app.post("/product", function(req, res){
   console.log("TEST TEST TEST");
-  var newcomment = new commentsSchema;
-  newcomment.title = req.body.gametitle;
-  newcomment.comment = req.body.comment;
-  newcomment.reviewscore = 5;
-  //  req.body.score;
-  newcomment.date = new Date;
-  newcomment.customer = req.body.username;
-  newcomment.save(function(err) {
+  var commentModel = mongoose.model('comment', commentsSchema);
+  var comment = new commentModel({title: req.body.gametitle,comment: req.body.comment,reviewscore: req.body.reviewscore, date: new Date(),customer: req.user.username })
+  
+  // newcomment.title = req.body.gametitle;
+  // newcomment.comment = req.body.comment;
+  // newcomment.reviewscore = 5;
+  // //  req.body.score;
+  // newcomment.date = new Date;
+  // newcomment.customer = req.body.username;
+  comment.save(function(err) {
     if (err) {
         console.log(err);
         res.send(err);
     } else {
-        //User saved!
-        res.json({ message: 'User created' });
+      
     }
 });
 });
@@ -96,7 +98,7 @@ app.post("/login", passport.authenticate("local", {
 app.get("/logout", function(req, res){
   req.logout();
   res.redirect("/");
-})
+});
 
 //login check [Not in use] (you need app.get to use it)
 function isLoggedIn(req,res,next){
@@ -105,6 +107,13 @@ function isLoggedIn(req,res,next){
   }
   res.redirect("/login");
 }
+app.use(bodyParser.urlencoded({extended:true}));
+
+//empty test post
+app.post("/etest", function(req,res){
+  console.log("ashraf");
+  res.end();
+});
 
 //Define global for our Schema
 global.productSchema = new mongoose.Schema({
@@ -139,7 +148,7 @@ global.commentsSchema = new mongoose.Schema({
   comment: String,
   reviewscore: Number,
   date: Date
-})
+});
 //Contacting to Mongo DB and setting items that are to be connected to it
 mongoUtil.connectToServer(function () {
 
@@ -164,6 +173,7 @@ mongoUtil.connectToServer(function () {
   app.use('/register', registerRouter);
   app.use('/productanalytic', productanalyticpageRouter);
   app.use('/comment',commentRouter);
+  app.use('/etest',emptytestpageRouter);
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
     next(createError(404));

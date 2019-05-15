@@ -38,7 +38,7 @@
             </div>
         <% } %>
   
-    <form>
+    <form action="/product" method="POST">
         <div class="container fluid" id="reviewBody">
             <div class="row justify-content-center">
                 <div class="col-md-12 px-0 mb-0">
@@ -47,7 +47,15 @@
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Comment</label>
                                 <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                
+                                    <select name="reviewscore">
+                                        <option value="1">1 star</option>
+                                        <option value="2">2 star</option>
+                                        <option value="3">3 star</option>
+                                        <option value="4">4 star</option>
+                                        <option value="5">5 star</option>
+                                      </select>
+                                  
+                                <input type="TEXT"  name="gametitle" value="<%- prod.title %>" hidden>
                             </div>
                             
                             <button type="submit" class="btn btn-success mt-3 mb-2 px-5">Comment</button>

@@ -12,7 +12,7 @@ router.get('/:id', function(req, res, next) {
            if (error) return console.error(error);
            console.log(product);
         
-  
+
 
     //Starting here
     //Declaring MongoUtils and getting Db
@@ -24,6 +24,8 @@ router.get('/:id', function(req, res, next) {
   
   //Declaring Sales as the mongoose.model (salesSchema)
   var Sales = mongoose.model('sales', salesSchema, "sales");
+  var Comment = mongoose.model('comments', commentsSchema,"comments");
+
   //Declaring Product as the mongoose.modle (productSchema)
   //var Product = mongoose.model('product', productSchema, "product")
   //Creating Sales Chart Algorithm 
@@ -68,6 +70,22 @@ router.get('/:id', function(req, res, next) {
      console.log(Month);
      console.log(product.title);
 // });
+
+//reviewsystem
+const reviewProm = await Promise.all([
+  Comment.aggregate(
+    [{$match : { title : product.title }},
+      { $group: {
+          _id: { month: { $month: "$date" }, year: { $year: "$date" }, reviewscore: "$reviewscore" },
+          reviewscore: { $first: "$reviewscore" },
+          month: { $first: { $month: "$date" } },
+          count: { $sum: 1 }
+        },
+
+      }
+    ],
+    )]);
+    console.log(reviewProm);
 res.render('productanalyticpage',{prod: product, data:charDataArra, mon:Month});
 //res.render product is rendering the product 'product'
        });

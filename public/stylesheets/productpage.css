@@ -26,3 +26,6 @@ height: 377px;
 #productDescription{
     width: 100%;
 }
+#inlineButton {
+    display: inline;
+}

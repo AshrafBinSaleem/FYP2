@@ -13,6 +13,8 @@
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawChart2);
+      google.charts.setOnLoadCallback(drawChart3);
 
       var month = [<%- mon %> ];
       var optionsLineChart = {
@@ -45,6 +47,45 @@
     var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
     chart.draw(data, optionsLineChart);
   }
+  //review month line chart
+  function drawChart2() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', '1', '2', '3', '4', '5'],
+          ['2004',  1000,      400, 500, 600, 700],
+          ['2005',  1170,      460, 500, 600, 700],
+          ['2006',  660,       1120, 500, 600, 700],
+          ['2007',  1030,      540, 500, 600, 700]
+        ]);
+
+        var options = {
+          title: 'Review Performance',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart2'));
+
+        chart.draw(data, options);
+      }
+      //new graph
+      function drawChart3() {
+        var data = google.visualization.arrayToDataTable([
+          ['Review Stars', 'Ratio'],
+          ['5',     11],
+          ['4',      2],
+          ['3',  2],
+          ['2 ', 2],
+          ['1',    7]
+        ]);
+
+        var options = {
+          title: 'Review Ratio',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('curve_chart3'));
+        chart.draw(data, options);
+      }
     </script>
     <title>Analytics</title>
 </head>
@@ -94,10 +135,170 @@
         <div class="row justify-content-center">
             <div class="col-md-12 px-0 mb-0 ">
                 <div class="row justify-content-center">
-                    <div class="col-md-6 px-0 mb-0 " id="slideShow">
+                   
                         <div class="thumbnail">
                                 <div id="curve_chart" style="width: 900px; height: 500px"></div></div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="container " id="AllChart">
+            <div class="row justify-content-center">
+                <div class="col-md-12 px-0 mb-0 ">
+                    <div class="row justify-content-center">
+                            <div class="col-md-4 px-1 mb-0 " id="salesGraph">
+                                    <div class="thumbnail">
+                                            <div id="curve_chart3" style="width: 500px; height: 500px"></div></div>
+                                </div>
+                        <div class="col-md-6 px-1 mb-0 " id="salesGraph">
+
+                            <div class="thumbnail">
+                                    <div id="curve_chart2" style="width: 900px; height: 500px"></div></div>
+                        </div>
+                      
+                    </div>
+                </div>
+            </div>
+  
+    <br>
+    <br>
+    <br>
+    <table class="table table-striped table-dark table-bordered ">
+            <thead>
+              <tr>
+                <th scope="col">Sales Report</th>
+                <th scope="col">January </th>
+                <th scope="col">February</th>
+                <th scope="col">March </th>
+                <th scope="col">April  </th>
+                <th scope="col">May </th>
+                <th scope="col">June  </th>
+                <th scope="col">July  </th>
+                <th scope="col">August </th>
+                <th scope="col">September  </th>
+                <th scope="col">October  </th>
+                <th scope="col">November </th>
+                <th scope="col">December  </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">By Months :</th>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <table class="table table-striped table-dark table-bordered ">
+                <thead>
+                  <tr>
+                    <th scope="col">Review Report</th>
+                    <th scope="col">January </th>
+                    <th scope="col">February</th>
+                    <th scope="col">March </th>
+                    <th scope="col">April  </th>
+                    <th scope="col">May </th>
+                    <th scope="col">June  </th>
+                    <th scope="col">July  </th>
+                    <th scope="col">August </th>
+                    <th scope="col">September  </th>
+                    <th scope="col">October  </th>
+                    <th scope="col">November </th>
+                    <th scope="col">December  </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bg-primary">
+                    <th scope="row" >5 stars:</th>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>7</td>
+                    <td>8</td>
+                    <td>9</td>
+                    <td>10</td>
+                    <td>11</td>
+                    <td>12</td>
+                  </tr>
+                  <tr class="bg-danger">
+                        <th scope="row">4 stars :</th>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>10</td>
+                        <td>11</td>
+                        <td>12</td>
+                      </tr>
+                      <tr class="bg-warning">
+                            <th scope="row">3 stars :</th>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>10</td>
+                            <td>11</td>
+                            <td>12</td>
+                          </tr>
+                          <tr class="bg-success">
+                                <th scope="row">2 stars :</th>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                                <td>5</td>
+                                <td>6</td>
+                                <td>7</td>
+                                <td>8</td>
+                                <td>9</td>
+                                <td>10</td>
+                                <td>11</td>
+                                <td>12</td>
+                              </tr>
+                              <tr class="bg-info">
+                                    <th scope="row">1 stars :</th>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>5</td>
+                                    <td>6</td>
+                                    <td>7</td>
+                                    <td>8</td>
+                                    <td>9</td>
+                                    <td>10</td>
+                                    <td>11</td>
+                                    <td>12</td>
+                                  </tr>
+                </tbody>
+              </table>
+          <br>
+          <br>
+          <br>
                     <!-- Analytic Side Panel -->
                     <div class="col-md-2 ml-4" id="analyticSidePanel1">
                         <div class="fiveStars">
@@ -137,6 +338,9 @@
                     <div class="col-md-2" id="analyticSidePanel2">
                         <p>Insert Review Score + Info</p>
                         <button type="button" class="btn btn-primary btn-lg"> Product Page </button>
+                        <br>
+                        <br>
+                        <button type="button" class="btn btn-danger btn-lg"> Print Report </button>
                     </div>
                 </div>
             </div>

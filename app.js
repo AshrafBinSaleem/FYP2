@@ -19,7 +19,8 @@ var testPage = require('./routes/testpage');
 var app = express();
 var analyticspageRouter = require('./routes/analyticpage')
 var commentRouter = require('./routes/comment')
-
+var buypageRouter = require('./routes/buypage')
+var thankyouRouter = require('./routes/thankyou')
 //Authentication Code
 //Part 1
 var bodyParser = require("body-parser");
@@ -64,24 +65,33 @@ app.post("/register", function(req, res){
     });
   });
 });
-
+//comment 
 app.post("/product", function(req, res){
-  console.log("TEST TEST TEST");
+  console.log("Calling comment post");
   var commentModel = mongoose.model('comment', commentsSchema);
   var comment = new commentModel({title: req.body.gametitle,comment: req.body.comment,reviewscore: req.body.reviewscore, date: new Date(),customer: req.user.username })
   
-  // newcomment.title = req.body.gametitle;
-  // newcomment.comment = req.body.comment;
-  // newcomment.reviewscore = 5;
-  // //  req.body.score;
-  // newcomment.date = new Date;
-  // newcomment.customer = req.body.username;
   comment.save(function(err) {
     if (err) {
         console.log(err);
         res.send(err);
     } else {
-      
+      res.redirect('/product/' + req.body.gameid )
+    }
+});
+});
+//confirm purchase
+app.post("/buy", function(req, res){
+  console.log("Confirm");
+  var salesModel = mongoose.model('sales', salesSchema);
+  var sales = new salesModel({title: req.body.gametitle, customer: req.user.username, date: new Date(), price: req.body.gameprice })
+  
+  sales.save(function(err) {
+    if (err) {
+        console.log(err);
+        res.send(err);
+    } else {
+      res.redirect('/thankyou/' + req.body.gameid)
     }
 });
 });
@@ -174,6 +184,8 @@ mongoUtil.connectToServer(function () {
   app.use('/productanalytic', productanalyticpageRouter);
   app.use('/comment',commentRouter);
   app.use('/etest',emptytestpageRouter);
+  app.use('/buy',buypageRouter);
+  app.use('/thankyou',thankyouRouter )
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
     next(createError(404));

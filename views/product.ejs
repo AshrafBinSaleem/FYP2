@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+  
   <title>Product Page</title>
 </head>
 
@@ -96,9 +96,17 @@
             <p class="releaseDate"> Release Date : <%= prod.date.toDateString() %> </p>
             <p class="price"> Price : <%= prod.price %> </p>
             <p class="rating"> Product Rating : <%= prod.productRating %></p>
-
-            <button type="button" class="btn btn-success btn-lg"> Buy </button>
-            <button type="button" class="btn btn-primary btn-lg"> Analytics </button>
+            
+                <form id="inlineButton" action=".././buy/<%= id %>">
+                  <button type="submit" class="btn btn-success btn-lg">Buy </button>
+                </form>
+       
+         
+                <form id="inlineButton" action=".././productanalytic/<%= id %>">
+                  <button type="submit" class="btn btn-primary btn-lg">Analytics </button>
+                </form>
+           
+          
           </div>
         </div>
       </div>

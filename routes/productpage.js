@@ -28,7 +28,7 @@ router.get('/:id', function (req, res, next) {
           ])
         ]);
         console.log(ratingProm[0]);
-        res.render('product',{prod: product, comm: commentProm[0]});
+        res.render('product',{prod: product, comm: commentProm[0], id: id});
 //res.render product is rendering the product 'product'
     });
  

@@ -28,7 +28,15 @@ router.get('/:id', function (req, res, next) {
           ])
         ]);
         console.log(ratingProm[0]);
-        res.render('product',{prod: product, comm: commentProm[0], id: id});
+
+        var rating = new Array(5).fill(0);
+        ratingProm[0].forEach(element => {
+          rating[element._id.reviewscore - 1] = element.count;
+        });
+
+        console.log(rating);
+        
+        res.render('product',{prod: product, comm: commentProm[0], id: id, reviewRating: rating});
 //res.render product is rendering the product 'product'
     });
  

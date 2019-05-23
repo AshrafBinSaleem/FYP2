@@ -9,7 +9,22 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  
+  <script>
+  function getTotalStar(){
+      var starData = [<%- reviewRating %>];
+      var total = 0;  
+      for(var i = 0; i < starData.length ; i++){
+        total += starData[i];
+      }
+      return total;
+    };
+
+    function getStarPercentage(star){
+      var starData = [<%- reviewRating %>];
+        
+      return Number(starData[star]/getTotalStar() * 100).toFixed(2);
+    };
+  </script>
   <title>Product Page</title>
 </head>
 
@@ -66,30 +81,36 @@
           </div>
           <div class="col-md-4 ml-4" id="sidePanel1">
             <div class="fiveStars">
+              <span id="fiveStarValue"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
-            </div>
-            <div class="fourStars">
+              
+          </div>
+          <div class="fourStars">
+              <span id="fourStarValue"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
-            </div>
-            <div class="threeStars">
+          </div>
+          <div class="threeStars">
+              <span id="threeStarValue"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
-            </div>
-            <div class="twoStars">
+          </div>
+          <div class="twoStars">
+              <span id="twoStarValue"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
-            </div>
-            <div class="oneStars">
-              <span class="fa fa-star checked"></span>
-            </div>
+          </div>
+          <div class="oneStars">
+              <span id="oneStarValue"></span>
+              <span class="fa fa-star checked"></span>           
+          </div>
 
             <p class="developer mt-3"> Developer : <%= prod.developer %> </p>
             <p class="publisher"> Publisher : <%= prod.publisher %> </p>
@@ -211,5 +232,11 @@
   <%- include comment.ejs %>
 
 </body>
-
+<script>
+  document.getElementById("fiveStarValue").innerHTML = getStarPercentage(4) + "%";
+  document.getElementById("fourStarValue").innerHTML = getStarPercentage(3) + "%";
+  document.getElementById("threeStarValue").innerHTML = getStarPercentage(2) + "%";
+  document.getElementById("twoStarValue").innerHTML = getStarPercentage(1) + "%";
+  document.getElementById("oneStarValue").innerHTML = getStarPercentage(0) + "%";
+</script>
 </html>

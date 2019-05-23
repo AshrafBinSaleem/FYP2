@@ -72,6 +72,7 @@ router.get('/:id', function(req, res, next) {
 // });
 
 //reviewsystem
+
 const reviewProm = await Promise.all([
   Comment.aggregate(
     [{$match : { title : product.title }},
@@ -86,7 +87,17 @@ const reviewProm = await Promise.all([
     ],
     )]);
     console.log(reviewProm);
-res.render('productanalyticpage',{prod: product, data:charDataArra, mon:Month});
+    //reviewDataFull[star][month] <--- dimension
+    var reviewDataFull = [];
+  for(var i = 0; i < 5; i++){
+    var reviewData = new Array(12).fill(0);
+    reviewDataFull.push(reviewData);
+  }
+    reviewProm[0].forEach(revdata => {
+      reviewDataFull[revdata.reviewscore - 1][revdata.month - 1] = revdata.count;
+    });
+    console.log(reviewDataFull)
+    res.render('productanalyticpage',{prod: product, data:charDataArra, mon:Month, reviewData: reviewDataFull});
 //res.render product is rendering the product 'product'
        });
        

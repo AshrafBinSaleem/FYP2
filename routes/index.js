@@ -1,7 +1,7 @@
 //Index Page etc
 var express = require('express');
 var router = express.Router();
-
+var authen  = require('../authentication');
 /* GET home page. */
 router.get('/', function (req, res, next) {
   var mongoUtil = require('../mongoUtils');

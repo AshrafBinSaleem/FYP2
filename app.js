@@ -9,13 +9,11 @@ global.mongoose = require('mongoose');
 
 //Creating Routing Page
 var productanalyticpageRouter = require('./routes/productanalyticpage');
-var emptytestpageRouter = require('./routes/emptytestpage')
 var loginRouter = require('./routes/loginpage');
 var registerRouter = require('./routes/registerpage')
 var usersRouter = require('./routes/users');
 var storepageRouter = require('./routes/storepage');
 var productpageRouter = require('./routes/productpage');
-var testPage = require('./routes/testpage');
 var app = express();
 var analyticspageRouter = require('./routes/analyticpage')
 var commentRouter = require('./routes/comment')
@@ -65,7 +63,7 @@ app.post("/register", function(req, res){
     });
   });
 });
-//comment 
+//Comment 
 app.post("/product", function(req, res){
   console.log("Calling comment post");
   var commentModel = mongoose.model('comment', commentsSchema);
@@ -80,7 +78,7 @@ app.post("/product", function(req, res){
     }
 });
 });
-//confirm purchase
+//Confirm purchase
 app.post("/buy", function(req, res){
   console.log("Confirm");
   var salesModel = mongoose.model('sales', salesSchema);
@@ -95,6 +93,7 @@ app.post("/buy", function(req, res){
     }
 });
 });
+
 //Login logic part 
 //Middleware
 app.post("/login", passport.authenticate("local", {
@@ -110,7 +109,7 @@ app.get("/logout", function(req, res){
   res.redirect("/");
 });
 
-//login check [Not in use] (you need app.get to use it)
+//Login check [Not in use] (you need app.get to use it)
 function isLoggedIn(req,res,next){
   if(req.authenticate()){
     return next();
@@ -119,20 +118,15 @@ function isLoggedIn(req,res,next){
 }
 app.use(bodyParser.urlencoded({extended:true}));
 
-//empty test post
-app.post("/etest", function(req,res){
-  console.log("ashraf");
-  res.end();
-});
-
 //Define global for our Schema
+//Product Schema
 global.productSchema = new mongoose.Schema({
   title: String,
   developer: String, 
   publisher: String, 
   date: Date,
   price: Number,
-  review_Score: Number,
+  rating: String,
   desc: String,
   introduction: String,
   setting: String,
@@ -140,18 +134,18 @@ global.productSchema = new mongoose.Schema({
   play_Mode: String,
   type: Array,
 });
-
+//Company Schema
 global.companySchema = new mongoose.Schema({
   name: String
 });
-
+//Sales Schema
 global.salesSchema = new mongoose.Schema({
   title: String,
   customer: String,
   date: Date,
   price: Number,
 });
-
+//Comment Schema
 global.commentsSchema = new mongoose.Schema({
   title: String,
   customer: String,
@@ -163,7 +157,7 @@ global.commentsSchema = new mongoose.Schema({
 mongoUtil.connectToServer(function () {
 
 
-  // view engine setup
+  //View engine setup aka templating tool
   app.set('views', path.join(__dirname, 'views'));
   app.set('view engine', 'ejs');
 
@@ -177,27 +171,26 @@ mongoUtil.connectToServer(function () {
   app.use('/users', usersRouter);
   app.use('/', storepageRouter);
   app.use('/product',productpageRouter);
-  app.use('/test',testPage);
   app.use('/analytics',analyticspageRouter);
   app.use('/login', loginRouter);
   app.use('/register', registerRouter);
   app.use('/productanalytic', productanalyticpageRouter);
   app.use('/comment',commentRouter);
-  app.use('/etest',emptytestpageRouter);
   app.use('/buy',buypageRouter);
   app.use('/thankyou',thankyouRouter )
-  // catch 404 and forward to error handler
+
+  //Catch 404 and forward to error handler
   app.use(function (req, res, next) {
     next(createError(404));
   });
 
-  // error handler
+  //Error handler
   app.use(function (req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-    // render the error page
+    //Render the error page
     res.status(err.status || 500);
     res.render('error');
   });

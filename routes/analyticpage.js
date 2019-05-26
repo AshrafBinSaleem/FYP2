@@ -1,5 +1,4 @@
-    
-//Settping up router, express and mongoose
+//Setting up router, express and mongoose
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
@@ -25,28 +24,39 @@ router.get('/', authen.isLoggedIn, function (req, res, next) {
     if (error) return console.error(error);
     const resProm = await Promise.all([
       Sales.aggregate([{
+        //Grouping by ID, Title, Month And Count
         $group: {
           _id: { month: { $month: "$date" }, year: { $year: "$date" }, title: "$title" },
           title: { $first: "$title" },
           month: { $first: { $month: "$date" } },
           count: { $sum: 1 }
         },
-
+        //Sorting by Title and Month
       }, { $sort: { title: 1, month: 1 } }])
     ]);
 
 
   //Defining Variables for Month
+
+  //May not need (1)
     var d = new Date();
     var n = d.getMonth() + 1;
+
+    //Declaring Months 
     var Month = ["'Jan'", "'Feb'" , "'March'", "'April'", "'June'" , "'July'", "'May'" , "'Aug'", "'Stp'", "'Oct'", "'Nov'", "'Dec'"];
     //Creating algorithm to fix mongoDB date differiences (For example : in Mongodb 1st of Jan will be listed at December 2018 instead for 1st Jan of 2019)
     var charDataArra = [];
+
+      //May not need (2)
     var idElement = 0;
+
     titles.forEach(element => {
       tmpArra = new Array(12).fill(0);;
+
+      //May not need (3)
       var monthInd = 1;
-      //console.log(element); 
+
+      //Creating a Mongoose promise named Res to get sales data
       resProm[0].forEach(charData => {
         if (charData.title == element) {
           tmpArra[charData.month - 1] = charData.count 
@@ -57,7 +67,7 @@ router.get('/', authen.isLoggedIn, function (req, res, next) {
       charDataArra.push(tmpArra);
     });
 
-    //Code for Line Graph
+    //Code for Sales Graph
     var columnType = [];
     var titleNew = []
     columnType.push("'string'");
@@ -67,12 +77,9 @@ router.get('/', authen.isLoggedIn, function (req, res, next) {
      titleNew.push( "'" + titles[index] +"'");
      columnType.push("'number'");
     }
-    //Testing for Data
-    console.log(charDataArra);
-    console.log(Month);
-    console.log(titles);
 
     //Code for Play Mode (Basically singleplayer, Multiplayer etc) 
+    //Creating another Res promise for sales in regards to PlayMode
     const resSalesProm = await Promise.all([
       Sales.aggregate([{
         $lookup: {
@@ -115,7 +122,7 @@ router.get('/', authen.isLoggedIn, function (req, res, next) {
 
     console.log(playModeArra);
 
-    //Code for Gerne Chart (Aka Type)
+    //Code for Gerne Chart (Aka Type like RPG, Action etc)
      const genreSalesProm = await Promise.all([
       Sales.aggregate([{
         $lookup: {
@@ -133,9 +140,8 @@ router.get('/', authen.isLoggedIn, function (req, res, next) {
 
       } ])
     ]);
-    //Checking the code before grouping them.
-    console.log("Genre check");
-    console.log(genreSalesProm[0]);
+
+    //Grouping the data by ID and Type
     var typeArra = await Promise.all([
       Product.aggregate([{
         $group: {
@@ -145,11 +151,10 @@ router.get('/', authen.isLoggedIn, function (req, res, next) {
 
       } ])
     ]);
-    //Storing the [0,1,0] : data sales per month 
-    var storageForType = [];
-    console.log("check point 1");
-    console.log(typeArra);
 
+    //Storing the eg : [0,1,0] (Example : [0, 1 , 0], the first zero would mean 0 sales for January), data sales per month 
+    var storageForType = [];
+    
     var GenreColumnType = [];
     var GenreHeader = [];
     GenreColumnType.push("'string'");
@@ -166,14 +171,7 @@ router.get('/', authen.isLoggedIn, function (req, res, next) {
        storageForType.push(tmpArra);
        GenreHeader.push("'" + element.type + "'")
        GenreColumnType.push("'number'");
-     });
-
-     //Checking each Data Log
-     console.log("check point 2");
-     console.log(storageForType);
-     console.log(GenreHeader);
-     console.log(GenreColumnType);
-    
+     }); 
 
     for (let index = 0; index < titles.length; index++) {
      titleNew.push( "'" + titles[index] +"'");
@@ -181,7 +179,6 @@ router.get('/', authen.isLoggedIn, function (req, res, next) {
     }
 
     //Developer chart
-      /** Developer graph */
     const resDevelopProm = await Promise.all([
       Sales.aggregate([{
         $lookup: {
@@ -216,11 +213,13 @@ router.get('/', authen.isLoggedIn, function (req, res, next) {
 
     console.log(resDeveloper[0]);
     var developDataArra = [];
-    var idElement = 0;
+    
+    //May not need (4)
+     var idElement = 0;
     resDeveloper[0].forEach(element => {
       tmpArra = new Array(12).fill(0);;
+    //May not need (5)
       var monthInd = 1;
-      //console.log(element); 
       resDevelopProm[0].forEach(charData => {
         if (charData.developer == element.developer) {
           tmpArra[charData.month - 1] = charData.count 
@@ -232,17 +231,68 @@ router.get('/', authen.isLoggedIn, function (req, res, next) {
       DeveloperHeader.push("'" + element.developer + "'")
       DeveloperColumnType.push("'number'");
     });
-    //Checking Developer Chart
-    console.log(DeveloperHeader);
-    console.log(DeveloperColumnType);
-    console.log(resDevelopProm[0]);
-    console.log(developDataArra);
     
+    //Publisher chart
+    const resPublisherProm = await Promise.all([
+      Sales.aggregate([{
+        $lookup: {
+          from : "product" ,
+          localField : "title",
+          foreignField : "title",
+          as: "productDetails"
+        }},{
+        $group: {
+          _id: { month: { $month: "$date" }, year: { $year: "$date" }, publisher: "$productDetails.publisher" },
+          publisher: { $first: "$productDetails.publisher" },
+          month: { $first: { $month: "$date" } },
+          count: { $sum: 1 }
+        },
+
+      } ])
+    ]);
+
+    var resPublisher= await Promise.all([
+      Product.aggregate([{
+        $group: {
+          _id: { publisher: "$publisher" },
+          publisher: { $first: "$publisher" }
+        },
+      } ])
+    ]);
+    
+    var PublisherColumnType = [];
+    var PublisherHeader = [];
+    PublisherColumnType.push("'string'");
+    PublisherHeader.push("'Month'")
+
+    console.log(resPublisher[0]);
+    var publisherDataArra = [];
+    
+    //May not need (4)
+     var idElement = 0;
+     resPublisher[0].forEach(element => {
+      tmpArra = new Array(12).fill(0);;
+    //May not need (5)
+      var monthInd = 1;
+      resPublisherProm[0].forEach(charData => {
+        if (charData.publisher == element.publisher) {
+          tmpArra[charData.month - 1] = charData.count 
+
+        }
+
+      });
+      publisherDataArra.push(tmpArra);
+      PublisherHeader.push("'" + element.publisher + "'")
+      PublisherColumnType.push("'number'");
+    });
+
     //Rending page and data provided.
     res.render('analytics', { tit: titleNew, mon : Month, data: charDataArra ,coltype : columnType, 
       playmodedata : playModeArra, gametitle : gametypeout, gamecoltype : gametitlecolumntype,
      genreData: storageForType, genreHeader: GenreHeader, genreColumnType : GenreColumnType, 
-     developerData : developDataArra, developerHeader : DeveloperHeader, developerColumnType : DeveloperColumnType  });
+     developerData : developDataArra, developerHeader : DeveloperHeader, developerColumnType : DeveloperColumnType,
+     pubilsherData : publisherDataArra, publisherHeader : PublisherHeader, publisherColumnType : PublisherColumnType
+    });
 
   })
 

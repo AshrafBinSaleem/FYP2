@@ -31,7 +31,10 @@
   google.charts.setOnLoadCallback(drawGenreChart);
   google.charts.setOnLoadCallback(drawDeveloperChartLine);
   google.charts.setOnLoadCallback(drawDeveloperChart);
-
+  google.charts.setOnLoadCallback(drawPublisherChartLine);
+  google.charts.setOnLoadCallback(drawPublisherChart);
+  google.charts.setOnLoadCallback(drawRatingChartLine);
+  google.charts.setOnLoadCallback(drawRatingChart);
   //console.log(a);
   // Callback that creates and populates a data table,
   // instantiates the pie chart, passes in the data and
@@ -82,7 +85,8 @@
       data.addRow([titles[i + 1], totalPergame[i]]);
     }
     var options = {
-      title: 'Sales share market'
+      title: 'Sales share market',
+
     };
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
     chart.draw(data, options);
@@ -244,7 +248,60 @@
     };
     var chart = new google.visualization.PieChart(document.getElementById('pie4chart'));
     chart.draw(data, options);
-    }    
+    }  
+    
+    //Publisher Charts
+  function drawPublisherChartLine() {
+       //Google chart visualization data table
+       var data = new google.visualization.DataTable();
+      var Header = [<%- publisherHeader %>];
+      var HeaderType = [<%- publisherColumnType %>];
+      for (let index = 0; index < Header.length; index++) {
+        data.addColumn(HeaderType[index], Header[index]);
+      }
+      
+      var chartsdata = [<%- pubilsherData %>];
+      for (var i = 0; i < month.length; i++) {
+        var temp = [];
+        temp.push(month[i]);
+        for (var index = 0; index < (Header.length - 1); index++) {
+          
+          temp.push(chartsdata[i + (index * month.length)]);
+        }
+        data.addRow(temp);
+      }
+        var chart = new google.visualization.LineChart(document.getElementById('curve5_chart'));
+        chart.draw(data, optionsLineChart);
+      }        
+  function drawPublisherChart() {
+      var data = new google.visualization.DataTable();
+      var chartsdata = [<%- pubilsherData %>];
+      var totalPergame = []
+      var Header = ['Type','Sales'];
+      var HeaderType = ['string','number'];
+      for (let index = 0; index < Header.length; index++) {
+        data.addColumn(HeaderType[index], Header[index]);
+        
+      }
+      var totalAdd = 0
+      for (var i = 0; i < chartsdata.length; i++) {
+        totalAdd += chartsdata[i]
+        if(((i+1) % 12) == 0){
+          totalPergame.push(totalAdd)
+          totalAdd = 0;
+        }
+      }
+      var titles = [<%- publisherHeader %>];
+      for (var i = 0; i< totalPergame.length; i++)
+      {
+        data.addRow([titles[i+1], totalPergame[i]]);
+      }
+    var options = {
+      title: 'Sales share market'
+    };
+    var chart = new google.visualization.PieChart(document.getElementById('pie5chart'));
+    chart.draw(data, options);
+    }       
   </script>
     <title>Store Page</title>
 </head>
@@ -252,30 +309,24 @@
 <body>
     <!-- Nav Bar  -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <!-- Store button (Brand Button) -->
-        <a class="navbar-brand" href="#"> Store </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Non-Brand items  -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">
-                        Analytics Tool<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#"> Profile </a>
-                </li>
-            </ul>
-            <!-- Search Bar -->
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                    Search
-                </button>
-            </form>
+      <!-- Store button (Brand Button) -->
+      <a class="navbar-brand" href="/"> Store </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Non-Brand items  -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                  <a class="nav-link" href="/analytics">
+                      Analytics Tool<span class="sr-only">(current)</span></a>
+              </li>
+               <!-- Login/Logout/Registeration -->
+                  <li class="nav-item active">
+                      <a id="logout"  class="nav-link" href="/logout">Logout</a>
+                  </li>
+          </ul>
         </div>
     </nav>
     <!-- Promoted items -->
@@ -298,7 +349,7 @@
             <div class="col-md-6 px-1 mb-0 " id="salesGraph">
     
     
-              <div id="curve_chart" style="width: 900px; height: 500px"></div>
+              <div id="curve_chart" style="width: 800px; height: 500px"></div>
     
             </div>
             <!-- 3rd item  -->
@@ -311,7 +362,7 @@
           <div class="col-md-6 px-1 mb-0 " id="salesGraph">
     
     
-            <div id="curve2_chart" style="width: 900px; height: 500px"></div>
+            <div id="curve2_chart" style="width: 800px; height: 500px"></div>
   
           </div>
 
@@ -325,7 +376,7 @@
         <div class="col-md-6 px-1 mb-0 " id="salesGraph">
   
   
-          <div id="curve3_chart" style="width: 900px; height: 500px"></div>
+          <div id="curve3_chart" style="width: 800px; height: 500px"></div>
 
         </div>
 
@@ -339,9 +390,27 @@
       <div class="col-md-6 px-1 mb-0 " id="salesGraph">
 
 
-        <div id="curve4_chart" style="width: 900px; height: 500px"></div>
+        <div id="curve4_chart" style="width: 800px; height: 500px"></div>
 
       </div>
+
+         <!-- 9rd item  -->
+         <div class="col-md-4 px-1 mb-0 " id="salesGraph">
+    
+    
+            <div id="pie5chart" style="width: 500px; height: 500px"></div>
+          </div>
+        <!-- 10th item -->
+        <div class="col-md-6 px-1 mb-0 " id="salesGraph">
+  
+  
+          <div id="curve5_chart" style="width: 800px; height: 500px"></div>
+  
+        </div>
+
+      </div>
+
+ 
                 </div>
             </div>
         </div>

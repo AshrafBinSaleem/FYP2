@@ -11,8 +11,6 @@ Comment.find(function(error, comments){
         console.log(comments);
        //ejs page rendering
         res.render('comment',{comm: comments});
-//res.render product is rendering the product 'product'
-
 });
 });
 module.exports = router;

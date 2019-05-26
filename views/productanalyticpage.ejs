@@ -133,33 +133,26 @@
 </head>
 
 <body>
-    <!-- Nav Bar  -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <!-- Store button (Brand Button) -->
-        <a class="navbar-brand" href="#"> Store </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Non-Brand items  -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">
-                        Analytics Tool<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#"> Profile </a>
-                </li>
-            </ul>
-            <!-- Search Bar -->
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                    Search
-                </button>
-            </form>
-        </div>
+ <!-- Nav Bar  -->
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <!-- Store button (Brand Button) -->
+  <a class="navbar-brand" href="/"> Store </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  <!-- Non-Brand items  -->
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+              <a class="nav-link" href="/analytics">
+                  Analytics Tool<span class="sr-only">(current)</span></a>
+          </li>
+           <!-- Login/Logout/Registeration -->
+              <li class="nav-item active">
+                  <a id="logout"  class="nav-link" href="/logout">Logout</a>
+              </li>
+      </ul>
     </nav>
     <!-- Product Title -->
     <div class="container">
@@ -341,6 +334,14 @@
           <br>
           <br>
           <br>
+          <div class="container " id="slideShowEntire">
+            <div class="row justify-content-center">
+              <div class="col-md-12 px-0 mb-0 ">
+                <div class="row justify-content-center">
+                  <div class="col-md-6 px-0 mb-0 " id="slideShow">
+                    <div class="thumbnail">
+                      <img id="slideShowImg" src=<%= prod.imageLink %> alt="Template Image"></div>
+                  </div>
                     <!-- Analytic Side Panel -->
                     <div class="col-md-2 ml-4" id="analyticSidePanel1">
                         <div class="fiveStars">
@@ -374,27 +375,29 @@
                             <span id="oneStarValue"></span>
                         </div>
 
-                        <p class="developer mt-3"> Developer : </p>
-                        <p class="publisher"> Publisher : </p>
-                        <p class="releaseDate"> Release Date : </p>
-                        <p class="price"> Price : </p>
-                        <p class="rating"> Product Rating :</p>
-
-                        <button type="button" class="btn btn-success btn-lg"> BUY </button>
+                        <p class="developer mt-3"> Developer : <%= prod.title %> </p>
+                        <p class="publisher"> Publisher :  <%= prod.publisher %></p>
+                        <p class="releaseDate"> Release Date : <%= prod.date.toDateString() %></p>
+                        <p class="price"> Price :  <%= prod.price %></p>
+                        <p class="rating"> Product Rating : <%= prod.rating %></p>
                     </div>
                     <div class="col-md-2" id="analyticSidePanel2">
-                        <p>Insert Review Score + Info</p>
-                        <button type="button" class="btn btn-primary btn-lg"> Product Page </button>
+                        <form id="inlineButton" action=".././product/<%= id %>">
+                          <button type="submit" class="btn btn-primary btn-lg">Product Page </button>
+                        </form>
                         <br>
                         <br>
                         <button onclick="myFunction()" type="button" class="btn btn-danger btn-lg"> Print Report </button>
+                        <br>
+                        <br>
+                        <form id="inlineButton" action=".././buy/<%= id %>">
+                        <button type="submit" class="btn btn-success btn-lg">Buy </button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
         <br>
-        <P class="ml-5"><strong>Unsure where to put toolbar so imaging it next to the chart image above</strong></p>
-
     </div>
     <!-- Line -->
     <hr class=line>
@@ -408,24 +411,25 @@
                         <div class="thumbnail">
                             <img id="slideShowImg" src="imgs/Specs.JPG" alt="Template Image"> </div>
                     </div>
-                    <!-- Genre  -->
-                    <div class="col-md-2 ml-4 border border-dark bg-light" id="sidePanel1">
-                        <div class="genre">
-                            <h6><strong><u>Genre</u></strong></h6>
-                            <p>Action</p>
-                            <p>RPG</p>
-                            <P>Slash And Hack</P>
-                            <p>Adventure</p>
-                            <p>Grind</p>
-                        </div>
-                    </div>
+                 <!-- Genre  -->
+          <div class="col-md-2 ml-4 border border-dark bg-light" id="sidePanel1">
+              <div class="genre">
+                <h6><strong><u>Genre</u></strong></h6>
+                <% for (var i = 0; i < prod.type.length; i++) { %>
+  
+                  <li><%= prod.type[i] %></li>
+    
+                  <% } %>
+             
+              </div>
+            </div>
                     <!-- Mode of play -->
                     <div class="col-md-2 ml-4 border border-dark bg-light" id="sidePanel2">
-                        <h6><strong><u>Play Mode</u></strong></h6>
-                        <p> Single-Player</p>
-                        <p> Multi-Player</p>
-                        <p> Online-Coop</p>
-                    </div>
+                        <h6><strong><u>Single/Mulitplayer</u></strong></h6>
+                            <li>
+                                <%= prod.play_Mode %>
+            
+                            </li>
                 </div>
             </div>
         </div>
@@ -433,17 +437,7 @@
     <!-- Line -->
     <hr class="line">
     <!-- Reviews -->
-    <div class="container fluid mt-5" id="reviewBody">
-        <div class="row justify-content-center">
-            <div class="col-md-12 px-0 mb-0">
-                <div class="row justify-content-center">
-                    <div class="col-md-10 px-0 mb-0 border border dark bg-dark text-light" id="reviews">
-                        <p>Insert Review</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <%- include comment.ejs %>
     </body>
 <script>
    document.getElementById("fiveStarValue").innerHTML = getStarPercentage(4) + "%";

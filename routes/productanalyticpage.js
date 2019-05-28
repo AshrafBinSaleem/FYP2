@@ -54,13 +54,8 @@ router.get('/:id', authen.isLoggedIn, function(req, res, next) {
     var Month = ["'Jan'", "'Feb'" , "'March'", "'April'", "'June'" , "'July'", "'May'" , "'Aug'", "'Stp'", "'Oct'", "'Nov'", "'Dec'"];
     //Creating algorithm to fix mongoDB date differiences (For example : in Mongodb 1st of Jan will be listed at December 2018 instead for 1st Jan of 2019)
     var charDataArra = [];
-    
-    //May not need (1)
-    var idElement = 0;
 
       tmpArra = new Array(12).fill(0);;
-      //May not need (2)
-      var monthInd = 1;
   
       resProm[0].forEach(charData => {
           tmpArra[charData.month - 1] = charData.count 
@@ -70,7 +65,6 @@ router.get('/:id', authen.isLoggedIn, function(req, res, next) {
       charDataArra.push(tmpArra);
 
 //Review system
-
 const reviewProm = await Promise.all([
   Comment.aggregate(
     [{$match : { title : product.title }},

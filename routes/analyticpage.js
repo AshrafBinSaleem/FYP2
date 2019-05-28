@@ -4,7 +4,6 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var authen  = require('../authentication');
 
-/* GET home page. */
 router.get('/', authen.isLoggedIn, function (req, res, next) {
 
   //Declaring MongoUtils and getting Db
@@ -37,23 +36,15 @@ router.get('/', authen.isLoggedIn, function (req, res, next) {
 
   //Defining Variables for Month
 
-  //May not need (1)
-    var d = new Date();
-    var n = d.getMonth() + 1;
+  
 
     //Declaring Months 
     var Month = ["'Jan'", "'Feb'" , "'March'", "'April'", "'June'" , "'July'", "'May'" , "'Aug'", "'Stp'", "'Oct'", "'Nov'", "'Dec'"];
     //Creating algorithm to fix mongoDB date differiences (For example : in Mongodb 1st of Jan will be listed at December 2018 instead for 1st Jan of 2019)
     var charDataArra = [];
 
-      //May not need (2)
-    var idElement = 0;
-
     titles.forEach(element => {
       tmpArra = new Array(12).fill(0);;
-
-      //May not need (3)
-      var monthInd = 1;
 
       //Creating a Mongoose promise named Res to get sales data
       resProm[0].forEach(charData => {
@@ -213,12 +204,11 @@ router.get('/', authen.isLoggedIn, function (req, res, next) {
     console.log(resDeveloper[0]);
     var developDataArra = [];
     
-    //May not need (4)
-     var idElement = 0;
+    
     resDeveloper[0].forEach(element => {
       tmpArra = new Array(12).fill(0);;
     //May not need (5)
-      var monthInd = 1;
+   
       resDevelopProm[0].forEach(charData => {
         if (charData.developer == element.developer) {
           tmpArra[charData.month - 1] = charData.count 
@@ -267,12 +257,11 @@ router.get('/', authen.isLoggedIn, function (req, res, next) {
     console.log(resPublisher[0]);
     var publisherDataArra = [];
     
-    //May not need (4)
-     var idElement = 0;
+
+
      resPublisher[0].forEach(element => {
       tmpArra = new Array(12).fill(0);;
-    //May not need (5)
-      var monthInd = 1;
+ 
       resPublisherProm[0].forEach(charData => {
         if (charData.publisher == element.publisher) {
           tmpArra[charData.month - 1] = charData.count 

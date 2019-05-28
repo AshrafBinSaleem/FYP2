@@ -76,6 +76,7 @@
             <div class="thumbnail">
               <img id="slideShowImg" src=<%= prod.imageLink %> alt="Template Image"></div>
           </div>
+          <!-- Review stars-->
           <div class="col-md-4 ml-4" id="sidePanel1">
             <div class="fiveStars">
               <span id="fiveStarValue"></span>
@@ -218,6 +219,7 @@
   <%- include comment.ejs %>
 
 </body>
+<!-- Star Percentage %-->
 <script>
   document.getElementById("fiveStarValue").innerHTML = getStarPercentage(4) + "%";
   document.getElementById("fourStarValue").innerHTML = getStarPercentage(3) + "%";

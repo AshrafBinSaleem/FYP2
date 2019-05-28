@@ -109,14 +109,6 @@ app.get("/logout", function(req, res){
   res.redirect("/");
 });
 
-//Login check [Not in use] (you need app.get to use it)
-function isLoggedIn(req,res,next){
-  if(req.authenticate()){
-    return next();
-  }
-  res.redirect("/login");
-}
-app.use(bodyParser.urlencoded({extended:true}));
 
 //Define global for our Schema
 //Product Schema

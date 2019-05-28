@@ -4,7 +4,6 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var authen  = require('../authentication');
 
-
 /* GET home page. */
 router.get('/', authen.isLoggedIn, function (req, res, next) {
 

@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var authen  = require('../authentication');
 
 //Getting the :id of of the object from the database _id [EJS templating uses it to load objects data]
-router.get('/:id', function(req, res, next) {
+router.get('/:id', authen.isLoggedIn, function(req, res, next) {
    //creating an variable id to match object ID
    var id = new require('mongodb').ObjectID(req.params.id);
    //Creating a var model using mongoose.model function

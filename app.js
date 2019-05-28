@@ -19,6 +19,7 @@ var analyticspageRouter = require('./routes/analyticpage')
 var commentRouter = require('./routes/comment')
 var buypageRouter = require('./routes/buypage')
 var thankyouRouter = require('./routes/thankyou')
+var dummyRouter = require('./routes/dummypage')
 //Authentication Code
 //Part 1
 var bodyParser = require("body-parser");
@@ -177,8 +178,8 @@ mongoUtil.connectToServer(function () {
   app.use('/productanalytic', productanalyticpageRouter);
   app.use('/comment',commentRouter);
   app.use('/buy',buypageRouter);
-  app.use('/thankyou',thankyouRouter )
-
+  app.use('/thankyou',thankyouRouter );
+  app.use('/dummy',dummyRouter);
   //Catch 404 and forward to error handler
   app.use(function (req, res, next) {
     next(createError(404));

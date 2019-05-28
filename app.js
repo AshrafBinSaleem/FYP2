@@ -8,10 +8,10 @@ var logger = require('morgan');
 global.mongoose = require('mongoose');
 
 //Creating Routing Page
+var comparepageRouter = require('./routes/compare')
 var productanalyticpageRouter = require('./routes/productanalyticpage');
 var loginRouter = require('./routes/loginpage');
 var registerRouter = require('./routes/registerpage')
-var usersRouter = require('./routes/users');
 var storepageRouter = require('./routes/storepage');
 var productpageRouter = require('./routes/productpage');
 var app = express();
@@ -19,7 +19,6 @@ var analyticspageRouter = require('./routes/analyticpage')
 var commentRouter = require('./routes/comment')
 var buypageRouter = require('./routes/buypage')
 var thankyouRouter = require('./routes/thankyou')
-var dummyRouter = require('./routes/dummypage')
 //Authentication Code
 //Part 1
 var bodyParser = require("body-parser");
@@ -134,6 +133,8 @@ global.productSchema = new mongoose.Schema({
   imageLink: String,
   play_Mode: String,
   type: Array,
+  thankyou: String,
+  specs: String
 });
 //Company Schema
 global.companySchema = new mongoose.Schema({
@@ -169,7 +170,6 @@ mongoUtil.connectToServer(function () {
   app.use(express.static(path.join(__dirname, 'public')));
 
   //Declaring which router will use which template
-  app.use('/users', usersRouter);
   app.use('/', storepageRouter);
   app.use('/product',productpageRouter);
   app.use('/analytics',analyticspageRouter);
@@ -178,8 +178,8 @@ mongoUtil.connectToServer(function () {
   app.use('/productanalytic', productanalyticpageRouter);
   app.use('/comment',commentRouter);
   app.use('/buy',buypageRouter);
-  app.use('/thankyou',thankyouRouter );
-  app.use('/dummy',dummyRouter);
+  app.use('/thankyou',thankyouRouter);
+  app.use('/compare', comparepageRouter);
   //Catch 404 and forward to error handler
   app.use(function (req, res, next) {
     next(createError(404));

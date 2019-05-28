@@ -13,13 +13,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
  var month = [<%- mon %> ];
-  var optionsLineChart = {
-    title: 'Sales Performance',
-    series: {
-      curveType: 'function'
-    },
-    legend: { position: 'bottom' }
-  };
+ 
   // Load the Visualization API and the corechart package.
   google.charts.load('current', { 'packages': ['corechart', 'line'] });
   // Set a callback to run when the Google Visualization API is loaded.
@@ -39,6 +33,8 @@
   // Callback that creates and populates a data table,
   // instantiates the pie chart, passes in the data and
   // draws it.
+
+  //Sales charts
   function drawChart() {
     //Google chart visualization data table
     console.log("Drawing sales performance chart")
@@ -59,6 +55,13 @@
       }
       data.addRow(temp);
     }
+    var optionsLineChart = {
+    title: 'Sales performance',
+    series: {
+      curveType: 'function'
+    },
+    legend: { position: 'bottom' }
+  };
     var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
     chart.draw(data, optionsLineChart);
   }
@@ -85,7 +88,7 @@
       data.addRow([titles[i + 1], totalPergame[i]]);
     }
     var options = {
-      title: 'Sales share market',
+      title: 'Sales market share',
 
     };
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -112,6 +115,13 @@
         }
         data.addRow(temp);
       }
+      var optionsLineChart = {
+    title: 'Play Mode line chart',
+    series: {
+      curveType: 'function'
+    },
+    legend: { position: 'bottom' }
+  };
         var chart = new google.visualization.LineChart(document.getElementById('curve2_chart'));
         chart.draw(data, optionsLineChart);
       }
@@ -139,7 +149,7 @@
         data.addRow([titles[i+1], totalPergame[i]]);
       }
     var options = {
-      title: 'Sales share market'
+      title: 'Market Share for play mode'
     };
     var chart = new google.visualization.PieChart(document.getElementById('pie2chart'));
     chart.draw(data, options);
@@ -164,7 +174,13 @@
         }
         data.addRow(temp);
       }
-      
+      var optionsLineChart = {
+    title: 'Genre line Chart',
+    series: {
+      curveType: 'function'
+    },
+    legend: { position: 'bottom' }
+  };
         var chart = new google.visualization.LineChart(document.getElementById('curve3_chart'));
         chart.draw(data, optionsLineChart);
       }    
@@ -192,7 +208,7 @@
         data.addRow([titles[i+1], totalPergame[i]]);
       }
     var options = {
-      title: 'Genre Market Share'
+      title: 'Genre Market share'
     };
     var chart = new google.visualization.PieChart(document.getElementById('pie3chart'));
     chart.draw(data, options);
@@ -217,6 +233,13 @@
         }
         data.addRow(temp);
       }
+      var optionsLineChart = {
+    title: 'Developer sales performance',
+    series: {
+      curveType: 'function'
+    },
+    legend: { position: 'bottom' }
+  };
         var chart = new google.visualization.LineChart(document.getElementById('curve4_chart'));
         chart.draw(data, optionsLineChart);
       }        
@@ -244,7 +267,7 @@
         data.addRow([titles[i+1], totalPergame[i]]);
       }
     var options = {
-      title: 'Sales share market'
+      title: 'Developer share market'
     };
     var chart = new google.visualization.PieChart(document.getElementById('pie4chart'));
     chart.draw(data, options);
@@ -270,6 +293,13 @@
         }
         data.addRow(temp);
       }
+      var optionsLineChart = {
+    title: 'Publisher performance',
+    series: {
+      curveType: 'function'
+    },
+    legend: { position: 'bottom' }
+  };
         var chart = new google.visualization.LineChart(document.getElementById('curve5_chart'));
         chart.draw(data, optionsLineChart);
       }        
@@ -297,124 +327,140 @@
         data.addRow([titles[i+1], totalPergame[i]]);
       }
     var options = {
-      title: 'Sales share market'
+      title: 'Publisher share market'
     };
     var chart = new google.visualization.PieChart(document.getElementById('pie5chart'));
     chart.draw(data, options);
     }       
   </script>
     <title>Store Page</title>
-</head>
-
-<body>
-    <!-- Nav Bar  -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <!-- Store button (Brand Button) -->
-      <a class="navbar-brand" href="/"> Store </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    </head>
+    
+    <body>
+      <!-- Nav Bar  -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <!-- Store button (Brand Button) -->
+        <a class="navbar-brand" href="/"> Store </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
-      </button>
-      <!-- Non-Brand items  -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        </button>
+        <!-- Non-Brand items  -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                  <a class="nav-link" href="/analytics">
-                      Analytics Tool<span class="sr-only">(current)</span></a>
-              </li>
-               <!-- Login/Logout/Registeration -->
-                  <li class="nav-item active">
-                      <a id="logout"  class="nav-link" href="/logout">Logout</a>
-                  </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/analytics">
+                Analytics Tool<span class="sr-only">(current)</span></a>
+            </li>
+             <!--Compare-->
+             <li class="nav-item active">
+                <a class="nav-link" href="/compare">
+                   Compare <span class="sr-only">(current)</span></a>
+            </li>
+            <!-- Login/Logout/Registeration -->
+            <li class="nav-item active">
+              <a id="logout" class="nav-link" href="/logout">Logout</a>
+            </li>
           </ul>
         </div>
-    </nav>
-    <!-- Promoted items -->
-    <div class="container mt-3 px-0">
-      <h4>Sales Performance</h4>
-    </div>
-    <div class="container" id="salesAnalytics">
-      <div class="row">
-        <div class="col-md-12 px-0 mb-0 ">
-          <div class="row">
-            <!-- 1st item -->
-            <div class="col-md-4 px-1 mb-0 " id="salesGraph">
-    
-    
-              <div id="piechart" style="width: 500px; height: 500px"></div>
-    
-    
-            </div>
-            <!-- 2nd item -->
-            <div class="col-md-6 px-1 mb-0 " id="salesGraph">
-    
-    
-              <div id="curve_chart" style="width: 800px; height: 500px"></div>
-    
-            </div>
-            <!-- 3rd item  -->
-            <div class="col-md-4 px-1 mb-0 " id="salesGraph">
-    
-    
-              <div id="pie2chart" style="width: 500px; height: 500px"></div>
-            </div>
-          <!-- 4th item -->
-          <div class="col-md-6 px-1 mb-0 " id="salesGraph">
-    
-    
-            <div id="curve2_chart" style="width: 800px; height: 500px"></div>
-  
-          </div>
-
-          <!-- 5rd item  -->
-          <div class="col-md-4 px-1 mb-0 " id="salesGraph">
-    
-    
-            <div id="pie3chart" style="width: 500px; height: 500px"></div>
-          </div>
-        <!-- 6th item -->
-        <div class="col-md-6 px-1 mb-0 " id="salesGraph">
-  
-  
-          <div id="curve3_chart" style="width: 800px; height: 500px"></div>
-
-        </div>
-
-        <!-- 7rd item  -->
-        <div class="col-md-4 px-1 mb-0 " id="salesGraph">
-    
-    
-          <div id="pie4chart" style="width: 500px; height: 500px"></div>
-        </div>
-      <!-- 8th item -->
-      <div class="col-md-6 px-1 mb-0 " id="salesGraph">
-
-
-        <div id="curve4_chart" style="width: 800px; height: 500px"></div>
+      </nav>
+      <!-- Promoted items -->
+      <div class="container mt-3 px-0">
+        <h4>Overall Analytics Review</h4>
+        <button onclick="myFunction()" type="button" class="btn btn-danger btn-lg"> Print Report </button>
 
       </div>
-
-         <!-- 9rd item  -->
-         <div class="col-md-4 px-1 mb-0 " id="salesGraph">
+      <div class="container" id="salesAnalytics">
+        <div class="row">
+          <div class="col-md-12 px-0 mb-0 ">
+            <div class="row">
+              <!-- 1st item -->
+              <div class="col-md-4 px-1 mb-0 " id="salesGraph">
     
     
-            <div id="pie5chart" style="width: 500px; height: 500px"></div>
-          </div>
-        <!-- 10th item -->
-        <div class="col-md-6 px-1 mb-0 " id="salesGraph">
-  
-  
-          <div id="curve5_chart" style="width: 800px; height: 500px"></div>
-  
-        </div>
-
-      </div>
-
- 
-                </div>
+                <div id="piechart" style="width: 500px; height: 500px"></div>
+    
+    
+              </div>
+              <!-- 2nd item -->
+              <div class="col-md-6 px-1 mb-0 " id="salesGraph">
+    
+    
+                <div id="curve_chart" style="width: 800px; height: 500px"></div>
+    
+              </div>
+              <!-- 3rd item  -->
+              <div class="col-md-4 px-1 mb-0 " id="salesGraph">
+    
+    
+                <div id="pie2chart" style="width: 500px; height: 500px"></div>
+              </div>
+              <!-- 4th item -->
+              <div class="col-md-6 px-1 mb-0 " id="salesGraph">
+    
+    
+                <div id="curve2_chart" style="width: 800px; height: 500px"></div>
+    
+              </div>
+    
+              <!-- 5rd item  -->
+              <div class="col-md-4 px-1 mb-0 " id="salesGraph">
+    
+    
+                <div id="pie3chart" style="width: 500px; height: 500px"></div>
+              </div>
+              <!-- 6th item -->
+              <div class="col-md-6 px-1 mb-0 " id="salesGraph">
+    
+    
+                <div id="curve3_chart" style="width: 800px; height: 500px"></div>
+    
+              </div>
+    
+              <!-- 7rd item  -->
+              <div class="col-md-4 px-1 mb-0 " id="salesGraph">
+    
+    
+                <div id="pie4chart" style="width: 500px; height: 500px"></div>
+              </div>
+              <!-- 8th item -->
+              <div class="col-md-6 px-1 mb-0 " id="salesGraph">
+    
+    
+                <div id="curve4_chart" style="width: 800px; height: 500px"></div>
+    
+              </div>
+    
+              <!-- 9rd item  -->
+              <div class="col-md-4 px-1 mb-0 " id="salesGraph">
+    
+    
+                <div id="pie5chart" style="width: 500px; height: 500px"></div>
+              </div>
+              <!-- 10th item -->
+              <div class="col-md-6 px-1 mb-0 " id="salesGraph">
+    
+    
+                <div id="curve5_chart" style="width: 800px; height: 500px"></div>
+    
+              </div>
+    
             </div>
+    
+    
+          </div>
         </div>
+      </div>
     </div>
+    <br>
+    <script>
+
+   
+       function myFunction() {
+         window.print();
+       }
+   
+   </script>
 </body>
 
 </html>

@@ -9,8 +9,7 @@ router.get('/:id', authen.isLoggedIn, function(req, res, next) {
 //product.findOne is a function to match variable like _id : id (_id variable is listed at the mongoUtils)
   Product.findOne({_id: id},async function(error, product){
         if (error) return console.error(error);
-        console.log(product);
-        
+                
         res.render('thankyou',{prod: product, id: id});
     });
 });

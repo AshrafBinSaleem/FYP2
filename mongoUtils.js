@@ -8,7 +8,7 @@ module.exports = {
     _db = mongoose.connection;
     _db.on('error', console.error.bind(console, 'connection error:'));
     _db.once('open', function () {
-        console.log("succesfully connected");
+        console.log("Succesfully connected to database");
     });
 
 

@@ -37,7 +37,6 @@ router.get('/:id',authen.isLoggedIn ,function (req, res, next) {
         ratingProm[0].forEach(element => {
           rating[element._id.reviewscore - 1] = element.count;
         });
-        console.log(product)
         //res.render product is rendering the product 'product'
         res.render('product',{prod: product, comm: commentProm[0], id: id, reviewRating: rating});
     });

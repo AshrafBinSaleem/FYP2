@@ -12,10 +12,7 @@ router.get('/:id', authen.isLoggedIn, function(req, res, next) {
 
    //Product.findOne is a function to match variable like _id : id (_id variable is listed at the mongoUtils)
      Product.findOne({_id: id}, async function(error, product){
-           if (error) return console.error(error);
-           console.log(product);
-        
-
+           if (error) return console.error(error);        
       
   //Declaring MongoUtils and getting Db
   var mongoUtil = require('../mongoUtils');
@@ -47,7 +44,6 @@ router.get('/:id', authen.isLoggedIn, function(req, res, next) {
         ],
         )]);
     
-    console.log(resProm);
     //Defining Variables for Month
     var d = new Date();
     var n = d.getMonth() + 1;
@@ -78,7 +74,6 @@ const reviewProm = await Promise.all([
       }
     ],
     )]);
-    console.log(reviewProm);
 
     //ReviewDataFull [star][month] <--- dimension
     var reviewDataFull = [];
@@ -89,7 +84,6 @@ const reviewProm = await Promise.all([
     reviewProm[0].forEach(revdata => {
       reviewDataFull[revdata.reviewscore - 1][revdata.month - 1] = revdata.count;
     });
-    console.log(reviewDataFull)
 
     //adding 
      //Product.findOne is a function to match variable like _id : id (_id variable is listed at the mongoUtils)

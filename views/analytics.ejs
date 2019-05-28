@@ -29,7 +29,6 @@
   google.charts.setOnLoadCallback(drawPublisherChart);
   google.charts.setOnLoadCallback(drawRatingChartLine);
   google.charts.setOnLoadCallback(drawRatingChart);
-  //console.log(a);
   // Callback that creates and populates a data table,
   // instantiates the pie chart, passes in the data and
   // draws it.
@@ -37,7 +36,6 @@
   //Sales charts
   function drawChart() {
     //Google chart visualization data table
-    console.log("Drawing sales performance chart")
     var data = new google.visualization.DataTable();
     var Header = [<%- tit %>];
     var HeaderType = [<%- coltype %>];
@@ -97,7 +95,6 @@
 //Play Mode Charts
   function drawPlayModeChartLine() {
        //Google chart visualization data table
-      console.log("Drawing playmode")
        var data = new google.visualization.DataTable();
       var Header = [<%- gametitle %>];
       var HeaderType = [<%- gamecoltype %>];

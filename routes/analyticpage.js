@@ -110,8 +110,6 @@ router.get('/', authen.isLoggedIn, function (req, res, next) {
     gametypeout = ["'Month'","'SinglePlayer'", "'MultiPlayer'", "'Both'"]
     gametitlecolumntype = ["'string'","'number'","'number'","'number'"]
 
-    console.log(playModeArra);
-
     //Code for Gerne Chart (Aka Type like RPG, Action etc)
      const genreSalesProm = await Promise.all([
       Sales.aggregate([{
@@ -201,7 +199,6 @@ router.get('/', authen.isLoggedIn, function (req, res, next) {
     DeveloperColumnType.push("'string'");
     DeveloperHeader.push("'Month'")
 
-    console.log(resDeveloper[0]);
     var developDataArra = [];
     
     
@@ -254,7 +251,6 @@ router.get('/', authen.isLoggedIn, function (req, res, next) {
     PublisherColumnType.push("'string'");
     PublisherHeader.push("'Month'")
 
-    console.log(resPublisher[0]);
     var publisherDataArra = [];
     
 

@@ -65,7 +65,6 @@ app.post("/register", function(req, res){
 });
 //Comment 
 app.post("/product", function(req, res){
-  console.log("Calling comment post");
   var commentModel = mongoose.model('comment', commentsSchema);
   var comment = new commentModel({title: req.body.gametitle,comment: req.body.comment,reviewscore: req.body.reviewscore, date: new Date(),customer: req.user.username })
   
@@ -80,7 +79,6 @@ app.post("/product", function(req, res){
 });
 //Confirm purchase
 app.post("/buy", function(req, res){
-  console.log("Confirm");
   var salesModel = mongoose.model('sales', salesSchema);
   var sales = new salesModel({title: req.body.gametitle, customer: req.user.username, date: new Date(), price: req.body.gameprice })
   
